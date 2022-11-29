@@ -9,6 +9,16 @@
 BinaryHeap::BinaryHeap() = default;
 
 /*
+ * Must use this constructor. Default constructor does not work
+ * with this program. Must initialize heapMap to the size of the heap.
+ * Args:
+ *  int sizeOfHeap: the final, maximum size of the heap
+ */
+BinaryHeap::BinaryHeap(int sizeOfHeap) {
+    this->heapMap = HeapMap(sizeOfHeap);
+}
+
+/*
  * Constructor. Takes a vector of vertices and adds them to the
  * binary heap.
  */
@@ -31,6 +41,18 @@ BinaryHeap * BinaryHeap::add(Vertex v) {
     return this;
 }
 
+BinaryHeap * BinaryHeap::add(int vertex, int weight) {
+    Vertex v = Vertex(vertex, weight);
+    this->add(v);
+    return this;
+}
+
+BinaryHeap * BinaryHeap::add(int vertex, const std::string& weight) {
+    Vertex v = Vertex(vertex, weight);
+    this->add(v);
+    return this;
+}
+
 /*
  * returns the index of a vertex in the binary heap list.
  * Args: Vertex v.
@@ -49,6 +71,10 @@ int BinaryHeap::getLocation(int vertexKey) {
     return this->heapMap.getLocation(vertexKey);
 }
 
+bool BinaryHeap::inQueue(Vertex v) {
+    return this->heapMap.getLocation(v.vertex) != -1;
+}
+
 /*
  * Decreases the distance field in an object of type Vertex. Calls
  * heapify_up() and heapify_down() to preserve the definition of
@@ -59,7 +85,7 @@ int BinaryHeap::getLocation(int vertexKey) {
  */
 void BinaryHeap::heapDecreaseDistance(Vertex * v, int d) {
     int indexOfV = getLocation(*v);
-    v->change_distance(d);
+    this->heapList.at(indexOfV).setDistance(d);
     heapify_up(indexOfV);
     heapify_down(indexOfV);
 }
@@ -72,7 +98,7 @@ void BinaryHeap::heapDecreaseDistance(Vertex * v, int d) {
  */
 void BinaryHeap::heapDecreaseDistance(int key, int d) {
     Vertex * vertex = &this->heapList.at(getLocation(key));
-    vertex->change_distance(d);
+    vertex->setDistance(d);
     heapify_up(getLocation(key));
     heapify_down(getLocation(key));
 }
@@ -153,8 +179,11 @@ Vertex BinaryHeap::remove(Vertex v) {
     Vertex lastVertexInHeap = heapList.at(heapList.size() - 1);
     // Swap vertices in list
     swapVertices(v, lastVertexInHeap);  // Includes calls to heapify-up and heapify-down
-    // Resize list to delete last element
+    // Set index in heapMap to -1 to show that it's removed
+    heapMap.remove(v.vertex);
+    // Resize list to remove last element
     heapList.resize(heapList.size() - 1);
+
 
     heapify_down(indexOfV);
     heapify_up(indexOfV);

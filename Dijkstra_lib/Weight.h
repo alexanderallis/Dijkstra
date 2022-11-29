@@ -23,9 +23,11 @@ public:
     bool operator > (int) const;
     bool operator == (Weight w) const;
     bool operator == (int) const;
+    int operator + (Weight w) const;
     bool isInf() const;
 
-    void changeWeight(int i);
+    void setWeight(int i);
+    void setToInfinity();
 };
 
 

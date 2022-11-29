@@ -33,22 +33,30 @@ void Weight::set(const std::string& str) {
     }
 }
 
+void Weight::setToInfinity() {
+    this->infinity = true;
+    this->value = -1;
+}
+
 int Weight::get() const {
     return this->value;
 }
 
 bool Weight::operator < (Weight w) const {
-    if(w.isInf()) {
+    if(w.isInf() && this->isInf()) {
+        return false;
+    }
+    else if (w.isInf()) {
         return true;
     }
-    else if(this->isInf()) {
+    else if (this->isInf()) {
         return false;
     }
     else {
         return this->value < w.value;
     }
 }
-
+// TODO: Fix definitions below like that above ^.
 bool Weight::operator < (int i) const {
     if(this->isInf()) {
         return false;
@@ -100,11 +108,21 @@ bool Weight::operator == (int i) const {
     }
 }
 
+int Weight::operator + (Weight w) const {
+    if(this->isInf() || w.isInf()) {
+        return -1;
+    }
+    else {
+        return this->value + w.value;
+    }
+}
+
 bool Weight::isInf() const {
     if(this->infinity) return true;
     return false;
 }
 
-void Weight::changeWeight(int i) {
+void Weight::setWeight(int i) {
     this->value = i;
+    this->infinity = false;
 }

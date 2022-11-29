@@ -15,6 +15,8 @@
 
 class BinaryHeap {
 public:
+    BinaryHeap(int sizeOfHeap);
+
     std::vector<Vertex> heapList;
     HeapMap heapMap;  // operates in O(1)
 
@@ -25,19 +27,20 @@ public:
     void heapify_up(int);
     Vertex * getParent(Vertex &);
     Vertex remove(Vertex);
-    void removeRecursive(int indexOfVertex);
     Vertex heap_extract_min();
     bool isEmpty() const;
     void heapDecreaseDistance(Vertex * v, int);
     void heapDecreaseDistance(int key, int d);
     int getLocation(Vertex & v);
     int getLocation(int vertex);
-
-private:
-
     void swapVertices(Vertex i, Vertex j);
 
 
+    BinaryHeap *add(int vertex, int weight);
+
+    BinaryHeap *add(int vertex, const std::string &weight);
+
+    bool inQueue(Vertex v);
 };
 
 #endif //DIJKSTRA_BINARYHEAP_H

@@ -16,9 +16,16 @@ public:
         this->vertex = i;
         this->distance = Weight(j);
     };
-    void change_distance(int v) {
-        this->distance.changeWeight(v);
+    Vertex(int i, const std::string& j) {
+        this->vertex = i;
+        this->distance = Weight(j);
+    }
+    void setDistance(int v) {
+        this->distance.setWeight(v);
     };
+    void setToInfinity() {
+        this->distance.setToInfinity();
+    }
 };
 
 #endif //DIJKSTRA_VERTEX_H
