@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "read_input.h"
+#include "LinkedList.h"
 
 using std::ifstream;
 
@@ -21,7 +22,7 @@ using std::ifstream;
  *  0 if executed
  */
 
-int getPairsFromStdIn(std::vector<std::pair<int, int>> & pairs, int & numberOfVertices, int & numberOfEdges) {
+int getPairsFromStdIn(std::vector<LinkedList> & treePairs, int & numberOfVertices, int & numberOfEdges) {
 
     std::cout << "Please input tree, and press \"enter\"." << std::endl;
 
@@ -33,9 +34,13 @@ int getPairsFromStdIn(std::vector<std::pair<int, int>> & pairs, int & numberOfVe
     getline(std::cin, line);  // get edges
     numberOfEdges = stoi(line);
 
+    // Resize treePairs to be as large as the number of vertices
+    treePairs.resize(numberOfVertices);
+
     std::stringstream sStream;
     std::string vectorA;  // each vertex
     std::string vectorB;
+    std::string vectorC;
 
     for(int i = 0; i < numberOfEdges; i++) {
         getline(std::cin, line);
@@ -45,7 +50,8 @@ int getPairsFromStdIn(std::vector<std::pair<int, int>> & pairs, int & numberOfVe
             if(!sStream.fail()) {
                 sStream >> vectorA;
                 sStream >> vectorB;
-                pairs.emplace_back(std::stoi(vectorA), std::stoi(vectorB));
+                sStream >> vectorC;
+                treePairs.at(std::stoi(vectorA) - 1).add(std::stoi(vectorB), std::stof(vectorC));
             }
         }
         sStream.str(std::string());  // Clear string

@@ -1,30 +1,9 @@
 #include <iostream>
 #include "./Dijkstra_lib/LinkedList.h"
 #include "./Dijkstra_lib/BinaryHeap.h"
-#include "./Dijkstra_lib/read_file.h"
-#include "./Dijkstra_lib/adjacency_list.h"
+#include "./Dijkstra_lib/Dijkstras_Algorithm.h"
+#include "Dijkstra_lib/read_input.h"
 
-
-std::vector<Vertex> dijkstras_algorithm(BinaryHeap * heap, std::vector<LinkedList> * tree, std::vector<Vertex> & setS) {
-
-    Vertex dU;
-    Vertex dV;
-
-    // Outer while loop
-    while(!heap->isEmpty()) {  // O(V + E) for the two while loops
-        dU = heap->heap_extract_min();  // O(1)
-        while(!tree->at(dU.getVertex() - 1).isEmpty()) {  // for each vertex incident to dU. O(1) for the computation
-            dV = tree->at(dU.getVertex() - 1).pop();  // O(1)
-            if(heap->inQueue(dV) && heap->heapList.at(heap->getLocation(dV.getVertex())).getWeight() > dU.getWeight() + dV.getWeight()) {  // O(1)
-                heap->heapDecreaseDistance(&dV, dU.getWeight() + dV.getWeight());  // O(log(V))
-                heap->heapList.at(heap->getLocation(dV)).setPrecedingVertex(dU.getVertex());  // Set preceding vertex
-            }
-        }
-        setS.at(dU.getVertex() - 1) = dU;  // O(1)
-    }
-
-    return setS;
-}
 
 int main() {
 
@@ -34,7 +13,7 @@ int main() {
     std::vector<Vertex> setS;
 
     // Read the file and get a tree in the form of an adjacency list
-    readFile("Dijkstra_lib/input.txt", tree, numberOfVertices, numberOfEdges);
+    getPairsFromStdIn(tree, numberOfVertices, numberOfEdges);
 
     // Build the heap
     auto *heap = new BinaryHeap(numberOfVertices);
@@ -45,30 +24,16 @@ int main() {
 
     setS.resize(numberOfVertices);
 
-    // TODO: make algorithm accept decimals
     // Run Dijkstra's Algorithm
     dijkstras_algorithm(heap, &tree, setS);
 
     // Calculate Results
     auto paths = std::vector<std::vector<int>>(numberOfVertices);
-    Vertex v;
-    int pathIndex;
+    getPaths(paths, setS);
 
-    for(int i = 1; i < paths.size(); i++) {
-        pathIndex = setS.at(i).getVertex() - 1;
-        v = setS.at(i);
-        while(v.getVertex() != 1) {
-            paths.at(pathIndex).push_back(v.getVertex());
-            v = setS.at(v.getPrecedingVertex() - 1);
-            if(v.getVertex() == 1) {
-                paths.at(pathIndex).push_back(1);
-            }
-        }
-    }
 
-    // Print and Calculate Results
+    // Print Results
     Vertex vertex;
-    int previousVertex;
 
     std::cout << "Vertex 1" << std::endl;
     std::cout << "Shortest Distance is 0" << std::endl;
@@ -89,7 +54,6 @@ int main() {
         std::cout << std::endl << std::endl;
 
     }
-
 
     return 0;
 }

@@ -13,6 +13,6 @@ add_executable(Dijkstra2 main.cpp
         Dijkstra_lib/LinkedList.cpp Dijkstra_lib/LinkedList.h
         Dijkstra_lib/Node.cpp Dijkstra_lib/Node.h
         Dijkstra_lib/read_input.cpp Dijkstra_lib/read_input.h
-        Dijkstra_lib/read_file.cpp Dijkstra_lib/read_file.h
+        Dijkstra_lib/Dijkstras_Algorithm.cpp Dijkstra_lib/Dijkstras_Algorithm.h
         )
 

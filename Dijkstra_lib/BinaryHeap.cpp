@@ -47,6 +47,9 @@ BinaryHeap * BinaryHeap::add(int vertex, float weight) {
     return this;
 }
 
+/*
+ * Adds a vertex using string in put "inf" for infinity.
+ */
 BinaryHeap * BinaryHeap::add(int vertex, const std::string& weight) {
     Vertex v = Vertex(vertex, weight);
     this->add(v);
