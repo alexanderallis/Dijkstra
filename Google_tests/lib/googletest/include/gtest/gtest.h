@@ -50,7 +50,6 @@
 #define GOOGLETEST_INCLUDE_GTEST_GTEST_H_
 
 #include <cstddef>
-#include <cstdint>
 #include <limits>
 #include <memory>
 #include <ostream>
@@ -191,17 +190,6 @@ void ReportFailureInUnknownLocation(TestPartResult::Type result_type,
                                     const std::string& message);
 std::set<std::string>* GetIgnoredParameterizedTestSuites();
 
-// A base class that prevents subclasses from being copyable.
-// We do this instead of using '= delete' so as to avoid triggering warnings
-// inside user code regarding any of our declarations.
-class GTestNonCopyable {
- public:
-  GTestNonCopyable() = default;
-  GTestNonCopyable(const GTestNonCopyable &) = delete;
-  GTestNonCopyable &operator=(const GTestNonCopyable &) = delete;
-  ~GTestNonCopyable() = default;
-};
-
 }  // namespace internal
 
 // The friend relationship of some of these classes is cyclic.
@@ -297,7 +285,7 @@ class GTEST_API_ Test {
   // SetUp/TearDown method of Environment objects registered with Google
   // Test) will be output as attributes of the <testsuites> element.
   static void RecordProperty(const std::string& key, const std::string& value);
-  static void RecordProperty(const std::string& key, int64_t value);
+  static void RecordProperty(const std::string& key, int value);
 
  protected:
   // Creates a Test object.
@@ -1637,7 +1625,7 @@ class GTEST_API_ AssertHelper {
 // the GetParam() method.
 //
 // Use it with one of the parameter generator defining functions, like Range(),
-// Values(), ValuesIn(), Bool(), Combine(), and ConvertGenerator<T>().
+// Values(), ValuesIn(), Bool(), and Combine().
 //
 // class FooTest : public ::testing::TestWithParam<int> {
 //  protected:
@@ -1735,9 +1723,9 @@ class TestWithParam : public Test, public WithParamInterface<T> {};
 #define GTEST_FAIL() GTEST_FATAL_FAILURE_("Failed")
 
 // Like GTEST_FAIL(), but at the given source file location.
-#define GTEST_FAIL_AT(file, line)                \
-  return GTEST_MESSAGE_AT_(file, line, "Failed", \
-                           ::testing::TestPartResult::kFatalFailure)
+#define GTEST_FAIL_AT(file, line)         \
+  GTEST_MESSAGE_AT_(file, line, "Failed", \
+                    ::testing::TestPartResult::kFatalFailure)
 
 // Define this macro to 1 to omit the definition of FAIL(), which is a
 // generic name and clashes with some other libraries.
@@ -2075,7 +2063,9 @@ class GTEST_API_ ScopedTrace {
 
   ScopedTrace(const ScopedTrace&) = delete;
   ScopedTrace& operator=(const ScopedTrace&) = delete;
-};
+} GTEST_ATTRIBUTE_UNUSED_;  // A ScopedTrace object does its job in its
+                            // c'tor and d'tor.  Therefore it doesn't
+                            // need to be used otherwise.
 
 // Causes a trace (including the source file path, the current line
 // number, and the given message) to be included in every test failure
@@ -2199,16 +2189,9 @@ constexpr bool StaticAssertTypeEq() noexcept {
 #define TEST_F(test_fixture, test_name) GTEST_TEST_F(test_fixture, test_name)
 #endif
 
-// Returns a path to a temporary directory, which should be writable. It is
-// implementation-dependent whether or not the path is terminated by the
-// directory-separator character.
+// Returns a path to temporary directory.
+// Tries to determine an appropriate directory for the platform.
 GTEST_API_ std::string TempDir();
-
-// Returns a path to a directory that contains ancillary data files that might
-// be used by tests. It is implementation dependent whether or not the path is
-// terminated by the directory-separator character. The directory and the files
-// in it should be considered read-only.
-GTEST_API_ std::string SrcDir();
 
 #ifdef _MSC_VER
 #pragma warning(pop)

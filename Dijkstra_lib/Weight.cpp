@@ -14,14 +14,14 @@ Weight::Weight() {
 };
 
 Weight::Weight(int value) {
-    this->set(value);
+    this->setWeight(value);
 }
 
 Weight::Weight(const std::string& str) {
     this->set(str);
 }
 
-void Weight::set(int val) {
+void Weight::setWeight(int val) {
     this->value = val;
     this->infinity = false;
 }
@@ -33,12 +33,21 @@ void Weight::set(const std::string& str) {
     }
 }
 
+//int Weight::getWeightInt() {
+//    return this->value;
+//}
+
+//void Weight::setWeight(int i) {
+//    this->value = i;
+//    this->infinity = false;
+//}
+
 void Weight::setToInfinity() {
     this->infinity = true;
     this->value = -1;
 }
 
-int Weight::get() const {
+int Weight::getWeightInt() const {
     return this->value;
 }
 
@@ -122,7 +131,3 @@ bool Weight::isInf() const {
     return false;
 }
 
-void Weight::setWeight(int i) {
-    this->value = i;
-    this->infinity = false;
-}

@@ -37,7 +37,6 @@
 #include <cstring>
 #include <deque>
 #include <forward_list>
-#include <functional>
 #include <limits>
 #include <list>
 #include <map>
@@ -192,11 +191,6 @@ OutputStream& operator<<(OutputStream& os,
                          const TemplatedStreamableInFoo& /*ts*/) {
   os << "TemplatedStreamableInFoo";
   return os;
-}
-
-struct StreamableInLocal {};
-void operator<<(::std::ostream& os, const StreamableInLocal& /* x */) {
-  os << "StreamableInLocal";
 }
 
 // A user-defined streamable but recursively-defined container type in
@@ -458,15 +452,7 @@ TEST(PrintBuiltInTypeTest, Int128) {
 
 // Floating-points.
 TEST(PrintBuiltInTypeTest, FloatingPoints) {
-  // float (32-bit precision)
-  EXPECT_EQ("1.5", Print(1.5f));
-
-  EXPECT_EQ("1.0999999",  Print(1.09999990f));
-  EXPECT_EQ("1.1",        Print(1.10000002f));
-  EXPECT_EQ("1.10000014", Print(1.10000014f));
-  EXPECT_EQ("9e+09",      Print(9e9f));
-
-  // double
+  EXPECT_EQ("1.5", Print(1.5f));   // float
   EXPECT_EQ("-2.5", Print(-2.5));  // double
 }
 
@@ -1616,23 +1602,6 @@ TEST(PrintToStringTest, ContainsNonLatin) {
   EXPECT_PRINT_TO_STRING_(non_ascii_str,
                           "\"From \\xC3\\xA4 \\xE2\\x80\\x94 \\xE1\\xBA\\x91\""
                           "\n    As Text: \"From ä — ẑ\"");
-}
-
-TEST(PrintToStringTest, PrintStreamableInLocal) {
-  EXPECT_STREQ("StreamableInLocal",
-               PrintToString(foo::StreamableInLocal()).c_str());
-}
-
-TEST(PrintToStringTest, PrintReferenceToStreamableInLocal) {
-  foo::StreamableInLocal s;
-  std::reference_wrapper<foo::StreamableInLocal> r(s);
-  EXPECT_STREQ("StreamableInLocal", PrintToString(r).c_str());
-}
-
-TEST(PrintToStringTest, PrintReferenceToStreamableInGlobal) {
-  StreamableInGlobal s;
-  std::reference_wrapper<StreamableInGlobal> r(s);
-  EXPECT_STREQ("StreamableInGlobal", PrintToString(r).c_str());
 }
 
 TEST(IsValidUTF8Test, IllFormedUTF8) {

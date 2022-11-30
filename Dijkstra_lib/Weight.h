@@ -14,9 +14,9 @@ public:
     Weight();
     explicit Weight(int);
     explicit Weight(const std::string & str);
-    void set(int val);
+    void setWeight(int val);
     void set(const std::string& str);
-    int get() const;
+    int getWeightInt() const;
     bool operator < (Weight w) const;
     bool operator < (int) const;
     bool operator > (Weight w) const;
@@ -26,7 +26,6 @@ public:
     int operator + (Weight w) const;
     bool isInf() const;
 
-    void setWeight(int i);
     void setToInfinity();
 };
 
