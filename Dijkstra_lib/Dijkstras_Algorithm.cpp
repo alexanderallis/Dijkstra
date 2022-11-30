@@ -23,6 +23,11 @@ std::vector<Vertex> dijkstras_algorithm(BinaryHeap * heap, std::vector<LinkedLis
     Vertex dU;
     Vertex dV;
 
+    if(tree->size() == 1) {
+        setS.emplace_back(1,1,1);
+        return setS;
+    }
+
     // Outer while loop
     while(!heap->isEmpty()) {  // O(V + E) for the two while loops
         dU = heap->heap_extract_min();  // O(1)

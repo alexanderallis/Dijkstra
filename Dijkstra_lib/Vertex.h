@@ -25,6 +25,11 @@ public:
         this->vertex = i;
         this->distance = Weight(j);
     }
+    Vertex(int i, int j, float f) {
+        this->vertex = i;
+        this->precedingVertex = j;
+        this->distance = Weight(f);
+    }
     int getVertex() const {
         return this->vertex;
     }
