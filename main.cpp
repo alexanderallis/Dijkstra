@@ -1,8 +1,8 @@
 #include <iostream>
-#include "./Dijkstra_lib/LinkedList.h"
-#include "./Dijkstra_lib/BinaryHeap.h"
-#include "./Dijkstra_lib/Dijkstras_Algorithm.h"
-#include "Dijkstra_lib/read_input.h"
+#include "LinkedList.h"
+#include "BinaryHeap.h"
+#include "Dijkstras_Algorithm.h"
+#include "read_input.h"
 
 
 int main() {

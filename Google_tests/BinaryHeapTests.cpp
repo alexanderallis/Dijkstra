@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "../Dijkstra_lib/BinaryHeap.h"
+#include "../BinaryHeap.h"
 
 class BinaryHeapTestFixture : public ::testing::Test {
 
