@@ -14,6 +14,7 @@ class LinkedList {
 //        explicit LinkedList(const std::vector<int>&);
 //        ~LinkedList();
         void add(int, int);
+        void add(int vertex, float weight);
 //        void addTail(int);
         Vertex pop();
         int isEmpty() const;

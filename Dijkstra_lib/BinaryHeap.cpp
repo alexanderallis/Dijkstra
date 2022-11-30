@@ -41,7 +41,7 @@ BinaryHeap * BinaryHeap::add(Vertex v) {
     return this;
 }
 
-BinaryHeap * BinaryHeap::add(int vertex, int weight) {
+BinaryHeap * BinaryHeap::add(int vertex, float weight) {
     Vertex v = Vertex(vertex, weight);
     this->add(v);
     return this;
@@ -83,7 +83,7 @@ bool BinaryHeap::inQueue(Vertex v) {
  *  Vertex v: the object to change
  *  int d: the new value of the distance field.
  */
-void BinaryHeap::heapDecreaseDistance(Vertex * v, int d) {
+void BinaryHeap::heapDecreaseDistance(Vertex * v, float d) {
     int indexOfV = getLocation(*v);
     this->heapList.at(indexOfV).setDistance(d);
     heapify_up(indexOfV);

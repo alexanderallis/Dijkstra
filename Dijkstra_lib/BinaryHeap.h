@@ -29,14 +29,14 @@ public:
     Vertex remove(Vertex);
     Vertex heap_extract_min();
     bool isEmpty() const;
-    void heapDecreaseDistance(Vertex * v, int);
+    void heapDecreaseDistance(Vertex * v, float);
     void heapDecreaseDistance(int key, int d);
     int getLocation(Vertex & v);
     int getLocation(int vertex);
     void swapVertices(Vertex i, Vertex j);
 
 
-    BinaryHeap *add(int vertex, int weight);
+    BinaryHeap *add(int vertex, float weight);
 
     BinaryHeap *add(int vertex, const std::string &weight);
 

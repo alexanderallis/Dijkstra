@@ -58,7 +58,7 @@ int readFile(const std::string & fileName, std::vector<LinkedList> & treePairs, 
                     sStream >> vectorA;
                     sStream >> vectorB;
                     sStream >> vectorC;
-                    treePairs.at(std::stoi(vectorA) - 1).add(std::stoi(vectorB), std::stoi(vectorC));
+                    treePairs.at(std::stoi(vectorA) - 1).add(std::stoi(vectorB), std::stof(vectorC));
                 }
             }
 

@@ -9,21 +9,21 @@
 
 class Weight {
 public:
-    int value;
+    float value;
     bool infinity;
     Weight();
-    explicit Weight(int);
+    explicit Weight(float);
     explicit Weight(const std::string & str);
-    void setWeight(int val);
+    void setWeight(float val);
     void set(const std::string& str);
-    int getWeightInt() const;
+    float getWeightFloat() const;
     bool operator < (Weight w) const;
-    bool operator < (int) const;
+    bool operator < (float) const;
     bool operator > (Weight w) const;
-    bool operator > (int) const;
+    bool operator > (float) const;
     bool operator == (Weight w) const;
-    bool operator == (int) const;
-    int operator + (Weight w) const;
+    bool operator == (float) const;
+    float operator + (Weight w) const;
     bool isInf() const;
 
     void setToInfinity();

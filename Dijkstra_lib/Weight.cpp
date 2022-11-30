@@ -13,7 +13,11 @@ Weight::Weight() {
     this->infinity = true;
 };
 
-Weight::Weight(int value) {
+//Weight::Weight(int value) {
+//    this->setWeight(value);
+//}
+
+Weight::Weight(float value) {
     this->setWeight(value);
 }
 
@@ -21,10 +25,15 @@ Weight::Weight(const std::string& str) {
     this->set(str);
 }
 
-void Weight::setWeight(int val) {
+void Weight::setWeight(float val) {
     this->value = val;
     this->infinity = false;
 }
+
+//void Weight::setWeight(int val) {
+//    this->value = val;
+//    this->infinity = false;
+//}
 
 void Weight::set(const std::string& str) {
     if(str == "inf") {
@@ -33,7 +42,7 @@ void Weight::set(const std::string& str) {
     }
 }
 
-//int Weight::getWeightInt() {
+//int Weight::getWeightFloat() {
 //    return this->value;
 //}
 
@@ -47,7 +56,7 @@ void Weight::setToInfinity() {
     this->value = -1;
 }
 
-int Weight::getWeightInt() const {
+float Weight::getWeightFloat() const {
     return this->value;
 }
 
@@ -66,7 +75,7 @@ bool Weight::operator < (Weight w) const {
     }
 }
 // TODO: Fix definitions below like that above ^.
-bool Weight::operator < (int i) const {
+bool Weight::operator < (float i) const {
     if(this->isInf()) {
         return false;
     }
@@ -87,7 +96,7 @@ bool Weight::operator > (Weight w) const {
     }
 }
 
-bool Weight::operator > (int i) const {
+bool Weight::operator > (float i) const {
     if(this->isInf()) {
         return true;
     }
@@ -108,7 +117,7 @@ bool Weight::operator == (Weight w) const {
     }
 }
 
-bool Weight::operator == (int i) const {
+bool Weight::operator == (float i) const {
     if(this->isInf()) {
         return false;
     }
@@ -117,7 +126,7 @@ bool Weight::operator == (int i) const {
     }
 }
 
-int Weight::operator + (Weight w) const {
+float Weight::operator + (Weight w) const {
     if(this->isInf() || w.isInf()) {
         return -1;
     }

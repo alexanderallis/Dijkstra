@@ -18,7 +18,16 @@ LinkedList::LinkedList() {
 //    }
 //}
 
-void LinkedList::add(int vertex, int weight) {
+//void LinkedList::add(int vertex, int weight) {
+//    Node* nodePointer = new Node;
+//    auto* vertexPointer = new Vertex(vertex, weight);
+//    if (listPointer == nullptr) this -> tail = nodePointer;  // if first node created, set tail
+//    nodePointer->data = *vertexPointer;
+//    nodePointer->next = listPointer;
+//    listPointer = nodePointer;
+//}
+
+void LinkedList::add(int vertex, float weight) {
     Node* nodePointer = new Node;
     auto* vertexPointer = new Vertex(vertex, weight);
     if (listPointer == nullptr) this -> tail = nodePointer;  // if first node created, set tail

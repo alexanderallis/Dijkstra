@@ -13,27 +13,31 @@ public:
     int precedingVertex = 1;
     Weight distance;
     Vertex() = default;
-    Vertex(int i, int j) {
+//    Vertex(int i, int j) {
+//        this->vertex = i;
+//        this->distance = Weight(j);
+//    };
+    Vertex(int i, float f) {
         this->vertex = i;
-        this->distance = Weight(j);
-    };
+        this->distance = Weight(f);
+    }
     Vertex(int i, const std::string& j) {
         this->vertex = i;
         this->distance = Weight(j);
     }
-    int getVertex() {
+    int getVertex() const {
         return this->vertex;
     }
-    int getPrecedingVertex() {
+    int getPrecedingVertex() const {
         return this->precedingVertex;
     }
-    Weight getWeight() {
+    Weight getWeight() const {
         return this->distance;
     }
-    int getDistanceInt() const {
-        return this->distance.getWeightInt();
+    float getDistanceInt() const {
+        return this->distance.getWeightFloat();
     }
-    void setDistance(int v) {
+    void setDistance(float v) {
         this->distance.setWeight(v);
     };
     void setToInfinity() {
